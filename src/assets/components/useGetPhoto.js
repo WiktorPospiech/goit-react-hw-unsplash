@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchPhoto } from "./ImageCard/rick-api";
+import { fetchPhoto } from "./ImageCard/photo-api";
 
 export const useGetPhoto = () => {
   const [photoList, setCharactersList] = useState([]);

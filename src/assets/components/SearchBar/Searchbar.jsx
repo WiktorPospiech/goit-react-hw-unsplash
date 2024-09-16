@@ -1,4 +1,4 @@
-export default function SearchBar(getPhoto) {
+export default function SearchBar({ getPhoto }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
