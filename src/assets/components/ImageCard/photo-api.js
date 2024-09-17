@@ -13,8 +13,6 @@ export const fetchPhoto = async (name, pageNumber) => {
     },
   });
 
-  // return resp.data.results;
-
   const results = resp.data.results;
 
   return results.map((img) => ({

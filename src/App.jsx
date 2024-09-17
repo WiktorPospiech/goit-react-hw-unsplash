@@ -5,20 +5,27 @@ import Error from "./assets/components/ErrorMessage/ErrorMessage";
 import PhotoList from "./assets/components/ImageGallery/ImageGallery";
 import { useGetPhoto } from "./assets/components/useGetPhoto";
 import LoadMoreBtn from "./assets/components/LoadMoreBtn/LoadMoreBtn";
-// import ImageModal from "./assets/components/ImageModal/ImageModal";
+import { useState } from "react";
+import Modal from "./assets/components/ImageModal/ImageModal";
 
 function App() {
-  const {
-    isLoading,
-    error,
-    photoList,
-    getPhoto,
-    handleLoadMore,
-    handleImageClick,
-    isModalOpen,
-    closeModal,
-    selectedImage,
-  } = useGetPhoto();
+  const { isLoading, error, photoList, getPhoto, handleLoadMore } =
+    useGetPhoto();
+
+  const [showModal, setShowModal] = useState(false);
+  const [imageModal, setImageModal] = useState("");
+  const [alt, setAlt] = useState("");
+
+  const openModal = (largeImage, alt) => {
+    setShowModal(true);
+    setImageModal(largeImage);
+    setAlt(alt);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+    setImageModal("");
+    setAlt("");
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -31,18 +38,14 @@ function App() {
       <h1>Find your inspiration</h1>
       <SearchBar getPhoto={getPhoto} />
       <div>
-        <PhotoList photos={photoList} onImageClick={handleImageClick} />
+        <PhotoList photos={photoList} openModal={openModal} />
         {photoList.length > 0 && !isLoading && (
           <LoadMoreBtn onClick={handleLoadMore} />
         )}
+        {showModal && (
+          <Modal closeModal={closeModal} image={imageModal} alt={alt} />
+        )}
       </div>
-      {isModalOpen && selectedImage && (
-        <ImageModal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          image={selectedImage}
-        />
-      )}
     </>
   );
 }

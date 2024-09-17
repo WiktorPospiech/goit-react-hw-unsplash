@@ -1,27 +1,27 @@
-// // import Modal from "react-modal";
+import PropTypes from "prop-types";
+import css from "./Modal.module.css";
+export default function Modal({ closeModal, image, alt }) {
+  function handleClick(e) {
+    if (e.target.id === "overlay") closeModal();
+  }
 
-// Modal.setAppElement("#root");
+  function handleKeyDown(e) {
+    if (e.key === "Escape") {
+      closeModal();
+    }
+  }
+  window.addEventListener("keydown", handleKeyDown);
 
-// export default function ImageModal({ isOpen, onRequestClose, image }) {
-//   return (
-//     <Modal
-//       isOpen={isOpen}
-//       onRequestClose={onRequestClose}
-//       style={{
-//         overlay: {
-//           backgroundColor: "rgba(0, 0, 0, 0.75)",
-//         },
-//         content: {
-//           top: "50%",
-//           left: "50%",
-//           right: "auto",
-//           bottom: "auto",
-//           marginRight: "-50%",
-//           transform: "translate(-50%, -50%)",
-//         },
-//       }}
-//     >
-//       <div>{image ? <img src={image.src} /> : <p>No image selected</p>}</div>
-//     </Modal>
-//   );
-// }
+  return (
+    <div id="overlay" className={css.Overlay} onClick={handleClick}>
+      <div className={css.Modal}>
+        <img src={image} alt={alt} />
+      </div>
+    </div>
+  );
+}
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  image: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+};

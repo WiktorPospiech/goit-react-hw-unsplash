@@ -6,9 +6,6 @@ export const useGetPhoto = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-
   const getPhoto = async (name) => {
     try {
       setIsLoading(true);
@@ -19,16 +16,6 @@ export const useGetPhoto = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedImage(null);
   };
 
   const handleLoadMore = async () => {
@@ -44,7 +31,5 @@ export const useGetPhoto = () => {
     photoList,
     getPhoto,
     handleLoadMore,
-    handleImageClick,
-    closeModal,
   };
 };
